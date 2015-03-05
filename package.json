@@ -1,0 +1,15 @@
+{
+  "name": "phantasma",
+  "version": "0.0.1",
+  "description": "A high level promise based wrapper for phantomjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "petecoop <pete@petecoop.co.uk> (http://petecoop.co.uk/)",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^2.9.13",
+    "phantom": "^0.7.2"
+  }
+}
