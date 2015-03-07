@@ -1,4 +1,4 @@
-var Promise = require('bluebird');
+var Promise = require('./lib/promise');
 var phantom = require('phantom');
 var util = require('util');
 var EventEmitter = require('events').EventEmitter;
@@ -49,7 +49,7 @@ Phantasma.prototype.init = function () {
         resolve();
       });
     });
-  });
+  }).phantasma(self);
 
 };
 
@@ -62,7 +62,7 @@ Phantasma.prototype.open = function (url) {
     self.page.open(url, function (status) {
       resolve(status);
     });
-  });
+  }).phantasma(self);
 };
 
 Phantasma.prototype.exit = function () {
@@ -77,7 +77,7 @@ Phantasma.prototype.viewport = function (width, height) {
     page.set('viewportSize', {width: width, height: height}, function (result) {
       resolve(result);
     });
-  });
+  }).phantasma(self);
 };
 
 Phantasma.prototype.wait = function () {
@@ -87,7 +87,7 @@ Phantasma.prototype.wait = function () {
     self.once('onLoadFinished', function (status) {
       resolve(status);
     });
-  });
+  }).phantasma(self);
 };
 
 Phantasma.prototype.screenshot = function (path) {
@@ -95,7 +95,7 @@ Phantasma.prototype.screenshot = function (path) {
 
   return new Promise(function (resolve, reject) {
     self.page.render(path, resolve);
-  });
+  }).phantasma(self);
 };
 
 Phantasma.prototype.evaluate = function (fn) {
@@ -106,7 +106,7 @@ Phantasma.prototype.evaluate = function (fn) {
     if(!self.page) return reject('tried to evaluate before page created');
     args = [fn, resolve].concat(args.slice(1));
     self.page.evaluate.apply(null, args);
-  });
+  }).phantasma(self);
 };
 
 Phantasma.prototype.type = function (element, value) {
@@ -126,4 +126,10 @@ Phantasma.prototype.click = function (element) {
     var ele = document.querySelector(element);
     ele.dispatchEvent(evt);
   }, element);
+};
+
+Phantasma.prototype.title = function () {
+  return this.evaluate(function () {
+    return document.title;
+  });
 };
