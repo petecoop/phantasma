@@ -7,21 +7,10 @@ module.exports = Phantasma = function () {
   EventEmitter.call(this);
   this.ph = null;
   this.page = null;
+  return this.init();
 };
 
 util.inherits(Phantasma, EventEmitter);
-
-Phantasma.prototype.go = function (url) {
-  var self = this;
-  if(this.ph && this.page){
-    return this.open(url);
-  }else{
-    return this.init()
-      .then(function () {
-        return self.open(url);
-      });
-  }
-};
 
 Phantasma.prototype.init = function () {
   var self = this;
