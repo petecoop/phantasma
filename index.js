@@ -1,15 +1,17 @@
 var Promise = require('bluebird');
 var phantom = require('phantom');
+var util = require('util');
+var EventEmitter = require('events').EventEmitter;
  
 module.exports = Phantasma = function () {
-
+  EventEmitter.call(this);
   this.ph = null;
   this.page = null;
-  
 };
 
+util.inherits(Phantasma, EventEmitter);
+
 Phantasma.prototype.go = function (url) {
-  console.log('go', url);
   var self = this;
   if(this.ph && this.page){
     return this.open(url);
@@ -29,6 +31,9 @@ Phantasma.prototype.init = function () {
       self.ph = ph;
       ph.createPage(function (page) {
         self.page = page;
+        page.set('onLoadFinished', function (status) {
+          self.emit('onLoadFinished', status);
+        });
         resolve();
       });
     });
@@ -49,13 +54,44 @@ Phantasma.prototype.open = function (url) {
 };
 
 Phantasma.prototype.exit = function () {
-  console.log('exit');
   this.ph.exit();
+};
+
+Phantasma.prototype.wait = function () {
+  var self = this;
+
+  return new Promise(function (resolve, reject) {
+    self.once('onLoadFinished', function (status) {
+      resolve(status);
+    });
+  });
 };
 
 Phantasma.prototype.evaluate = function (fn) {
   var self = this;
+
+  var args = [].slice.call(arguments);
   return new Promise(function (resolve, reject) {
-    self.page.evaluate(fn, resolve);
+    args = [fn, resolve].concat(args.slice(1));
+    self.page.evaluate.apply(null, args);
   });
+};
+
+Phantasma.prototype.type = function (element, value) {
+  var self = this;
+
+  return this.evaluate(function (element, value) {
+    document.querySelector(element).value = value;
+  }, element, value);
+};
+
+Phantasma.prototype.click = function (element) {
+  var self = this;
+
+  return this.evaluate(function (element) {
+    var evt = document.createEvent('MouseEvent');
+    evt.initEvent('click', true, true);
+    var ele = document.querySelector(element);
+    ele.dispatchEvent(evt);
+  }, element);
 };
