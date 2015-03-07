@@ -72,6 +72,7 @@ Phantasma.prototype.evaluate = function (fn) {
 
   var args = [].slice.call(arguments);
   return new Promise(function (resolve, reject) {
+    if(!self.page) return reject('tried to evaluate before page created');
     args = [fn, resolve].concat(args.slice(1));
     self.page.evaluate.apply(null, args);
   });
