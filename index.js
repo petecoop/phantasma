@@ -90,6 +90,14 @@ Phantasma.prototype.wait = function () {
   });
 };
 
+Phantasma.prototype.screenshot = function (path) {
+  var self = this;
+
+  return new Promise(function (resolve, reject) {
+    self.page.render(path, resolve);
+  });
+};
+
 Phantasma.prototype.evaluate = function (fn) {
   var self = this;
 
