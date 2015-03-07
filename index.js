@@ -98,23 +98,23 @@ Phantasma.prototype.evaluate = function (fn) {
   }).phantasma(self);
 };
 
-Phantasma.prototype.type = function (element, value) {
+Phantasma.prototype.type = function (selector, value) {
   var self = this;
 
-  return this.evaluate(function (element, value) {
-    document.querySelector(element).value = value;
-  }, element, value);
+  return this.evaluate(function (selector, value) {
+    document.querySelector(selector).value = value;
+  }, selector, value);
 };
 
-Phantasma.prototype.click = function (element) {
+Phantasma.prototype.click = function (selector) {
   var self = this;
 
-  return this.evaluate(function (element) {
+  return this.evaluate(function (selector) {
     var evt = document.createEvent('MouseEvent');
     evt.initEvent('click', true, true);
-    var ele = document.querySelector(element);
+    var ele = document.querySelector(selector);
     ele.dispatchEvent(evt);
-  }, element);
+  }, selector);
 };
 
 Phantasma.prototype.title = function () {
