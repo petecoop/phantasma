@@ -31,6 +31,18 @@ Phantasma.prototype.init = function () {
       self.ph = ph;
       ph.createPage(function (page) {
         self.page = page;
+        page.set('onUrlChanged', function (url) {
+          self.emit('onUrlChanged', url);
+        });
+        page.set('onResourceRequested', function () {
+          self.emit('onResourceRequested');
+        });
+        page.set('onResourceReceived', function (res) {
+          self.emit('onResourceReceived', res);
+        });
+        page.set('onLoadStarted', function () {
+          self.emit('onLoadStarted');
+        });
         page.set('onLoadFinished', function (status) {
           self.emit('onLoadFinished', status);
         });
@@ -55,6 +67,17 @@ Phantasma.prototype.open = function (url) {
 
 Phantasma.prototype.exit = function () {
   this.ph.exit();
+};
+
+Phantasma.prototype.viewport = function (width, height) {
+  var self = this;
+
+  return new Promise(function (resolve, reject) {
+    if(!self.page) return reject('tried to set viewport before page created');
+    page.set('viewportSize', {width: width, height: height}, function (result) {
+      resolve(result);
+    });
+  });
 };
 
 Phantasma.prototype.wait = function () {
