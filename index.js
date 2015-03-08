@@ -7,6 +7,7 @@ module.exports = Phantasma = function () {
   EventEmitter.call(this);
   this.ph = null;
   this.page = null;
+  this.promise = Promise(this);
   return this.init();
 };
 
@@ -15,7 +16,7 @@ util.inherits(Phantasma, EventEmitter);
 Phantasma.prototype.init = function () {
   var self = this;
 
-  return new Promise(function (resolve, reject) {
+  return new this.promise(function (resolve, reject) {
     phantom.create(function (ph) {
       self.ph = ph;
       ph.createPage(function (page) {
@@ -38,20 +39,20 @@ Phantasma.prototype.init = function () {
         resolve();
       });
     });
-  }).phantasma(self);
+  });
 
 };
 
 Phantasma.prototype.open = function (url) {
   var self = this;
 
-  return new Promise(function (resolve, reject) {
+  return new this.promise(function (resolve, reject) {
     if(!self.page) return reject('tried to open before page created');
 
     self.page.open(url, function (status) {
       resolve(status);
     });
-  }).phantasma(self);
+  });
 };
 
 Phantasma.prototype.exit = function () {
@@ -61,41 +62,41 @@ Phantasma.prototype.exit = function () {
 Phantasma.prototype.viewport = function (width, height) {
   var self = this;
 
-  return new Promise(function (resolve, reject) {
+  return new this.promise(function (resolve, reject) {
     if(!self.page) return reject('tried to set viewport before page created');
     page.set('viewportSize', {width: width, height: height}, function (result) {
       resolve(result);
     });
-  }).phantasma(self);
+  });
 };
 
 Phantasma.prototype.wait = function () {
   var self = this;
 
-  return new Promise(function (resolve, reject) {
+  return new this.promise(function (resolve, reject) {
     self.once('onLoadFinished', function (status) {
       resolve(status);
     });
-  }).phantasma(self);
+  });
 };
 
 Phantasma.prototype.screenshot = function (path) {
   var self = this;
 
-  return new Promise(function (resolve, reject) {
+  return new this.promise(function (resolve, reject) {
     self.page.render(path, resolve);
-  }).phantasma(self);
+  });
 };
 
 Phantasma.prototype.evaluate = function (fn) {
   var self = this;
 
   var args = [].slice.call(arguments);
-  return new Promise(function (resolve, reject) {
+  return new this.promise(function (resolve, reject) {
     if(!self.page) return reject('tried to evaluate before page created');
     args = [fn, resolve].concat(args.slice(1));
     self.page.evaluate.apply(null, args);
-  }).phantasma(self);
+  });
 };
 
 Phantasma.prototype.type = function (selector, value) {
