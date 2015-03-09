@@ -1,4 +1,8 @@
 # Phantasma
+[![Build Status](https://img.shields.io/travis/petecoop/phantasma.svg)](https://travis-ci.org/petecoop/phantasma)
+[![NPM Version](https://img.shields.io/npm/v/phantasma.svg)](https://www.npmjs.org/package/phantasma)
+[![NPM Downloads](https://img.shields.io/npm/dm/phantasma.svg)](https://www.npmjs.org/package/phantasma)
+
 
 A high level promise based wrapper for [PhantomJS](http://phantomjs.org/)
 

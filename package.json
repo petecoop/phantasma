@@ -14,11 +14,17 @@
     "type": "git",
     "url": "https://github.com/petecoop/phantasma.git"
   },
+  "scripts": {
+    "test": "mocha"
+  },
   "license": "ISC",
   "dependencies": {
     "bluebird": "^2.9.13",
     "change-case": "^2.2.0",
     "defaults": "^1.0.0",
     "phantom": "^0.7.2"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.1"
   }
 }
