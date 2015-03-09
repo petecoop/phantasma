@@ -5,6 +5,28 @@ var EventEmitter = require('events').EventEmitter;
 var defaults = require('defaults');
 var changeCase = require('change-case');
 
+var OPTIONS = {
+  params: [
+    'diskCache',
+    'ignoreSslErrors',
+    'localStoragePath',
+    'localToRemoteUrlAccess',
+    'maxDiskCacheSize',
+    'proxy',
+    'proxyType',
+    'proxyAuth',
+    'sslCertificatesPath',
+    'webSecurity'
+  ],
+  options: [
+    'phantomPath',
+    'port'
+  ],
+  extras: [
+    'timeout'
+  ]
+};
+
 var DEFAULTS = {
   diskCache: false,
   ignoreSslErrors: true,
@@ -27,13 +49,26 @@ module.exports = Phantasma = function (options) {
   this.ph = null;
   this.page = null;
   this.promise = Promise(this);
-  return this.init(options);
+  this.options = defaults(options, DEFAULTS);
+  return this.init();
 };
 
 util.inherits(Phantasma, EventEmitter);
 
-Phantasma.prototype.init = function (options) {
+Phantasma.prototype.init = function () {
   var self = this;
+
+  var options = {parameters: {}};
+  for(var o in this.options){
+    if(this.options[o] !== null){
+      if(OPTIONS.params.indexOf(o) !== -1){
+        options.parameters[changeCase.paramCase(o)] = this.options[o];
+      }
+      if(OPTIONS.options.indexOf(o) !== -1){
+        options[o] = this.options[o];
+      }
+    }
+  }
 
   return new this.promise(function (resolve, reject) {
     phantom.create(function (ph) {
@@ -57,7 +92,7 @@ Phantasma.prototype.init = function (options) {
         });
         resolve();
       });
-    });
+    }, options);
   });
 
 };
@@ -71,7 +106,7 @@ Phantasma.prototype.open = function (url) {
     self.page.open(url, function (status) {
       resolve(status);
     });
-  });
+  }).timeout(this.options.timeout);
 };
 
 Phantasma.prototype.exit = function () {
@@ -96,7 +131,7 @@ Phantasma.prototype.wait = function () {
     self.once('onLoadFinished', function (status) {
       resolve(status);
     });
-  });
+  }).timeout(this.options.timeout);
 };
 
 Phantasma.prototype.screenshot = function (path) {

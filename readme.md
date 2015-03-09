@@ -94,7 +94,7 @@ The available options are:
 - `localToRemoteUrlAccess: [true|false]`: allows local content to access remote URL (default is `false`).
 - `maxDiskCacheSize: [Number]`: limits the size of disk cache in KB (no default).
 - `phantomPath`: specify a different custom path to PhantomJS (no default).
-- `port: [Number]`: specifies the phantomjs port (if not set will find an open port and use it).
+- `port: [Number]`: specifies the phantomjs port.
 - `proxy: 'address:port'`: specifies the proxy server to use (e.g. `proxy: '192.168.1.42:8080'`) (no default).
 - `proxyType: [http|socks5|none]`: specifies the type of the proxy server (default is `http`) (no default).
 - `proxyAuth`: specifies the authentication information for the proxy, e.g. `proxyAuth: 'username:password'`) (no default).
@@ -106,7 +106,7 @@ The available options are:
 ### Methods
 
 #### .open(url)
-Load the page at `url`.
+Load the page at `url`. Will throw a Timeout error if it takes longer to complete than the timeout setting.
 
 #### .click(selector)
 Clicks the `selector` element.
@@ -138,7 +138,7 @@ ph.evaluate(function (param1, param2) {
 ```
 
 #### .wait()
-Wait until a page finishes loading, typically after a `.click()`.
+Wait until a page finishes loading, typically after a `.click()`. Will throw a Timeout error if it takes longer to complete than the timeout setting.
 
 #### .exit()
 Close the phantomjs process
@@ -194,6 +194,34 @@ Executes `callback` when the `event` is emitted only once.
 - `onLoadFinished` - callback(status)
 
 [PhantomJS callbacks](https://github.com/ariya/phantomjs/wiki/API-Reference-WebPage#callbacks-list)
+
+## Promise methods
+
+You can use any of the methods available to bluebird [found here](https://github.com/petkaantonov/bluebird/blob/master/API.md).
+
+The most useful methods are:
+
+#### .then(fulfillHandler, rejectHandler)
+Returns a new promise chained from the previous promise. The return value of the previous promise will be passed into this promise.
+
+
+#### .finally(Function handler)
+Pass a handler that will be ran regardless of the outcome of the previous promises. Useful for cleaning up the Phantasma process e.g.
+
+```js
+.finally(function () {
+  ph.exit();
+});
+```
+
+#### .catch(Function handler)
+This is a catch-all exception handler - it can be used to find and log an error. e.g.
+
+```js
+.catch(function (e) {
+  console.log(e);
+});
+```
 
 ## License 
 
