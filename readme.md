@@ -187,13 +187,16 @@ Executes `callback` when the `event` is emitted only once.
 
 #### Supported Events:
 
+Supports the following phantomjs events, you can read more on these [here]([PhantomJS callbacks](https://github.com/ariya/phantomjs/wiki/API-Reference-WebPage#callbacks-list)):
+
 - `onUrlChanged` - callback(url)
 - `onResourceRequested` - callback()
 - `onResourceReceived` - callback(res)
 - `onLoadStarted` - callback()
 - `onLoadFinished` - callback(status)
-
-[PhantomJS callbacks](https://github.com/ariya/phantomjs/wiki/API-Reference-WebPage#callbacks-list)
+- `onAlert` - callback(msg)
+- `onErr` - callback(msg, trace)
+- `onNavigationRequested` - callback(url, type, willNavigate, main)
 
 ## Promise methods
 
@@ -222,6 +225,9 @@ This is a catch-all exception handler - it can be used to find and log an error.
   console.log(e);
 });
 ```
+
+#### .delay(ms)
+Delay the next promise for `ms` milliseconds
 
 ## License 
 

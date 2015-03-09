@@ -90,6 +90,15 @@ Phantasma.prototype.init = function () {
         page.set('onLoadFinished', function (status) {
           self.emit('onLoadFinished', status);
         });
+        page.set('onAlert', function (msg) {
+          self.emit('onAlert', msg);
+        });
+        page.set('onError', function (msg, trace) {
+          self.emit('onError', msg, trace);
+        });
+        page.set('onNavigationRequested', function (url, type, willNavigate, main) {
+          self.emit('onNavigationRequested', url, type, willNavigate, main);
+        });
         resolve();
       });
     }, options);
