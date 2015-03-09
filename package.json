@@ -25,6 +25,7 @@
     "phantom": "^0.7.2"
   },
   "devDependencies": {
-    "mocha": "^2.2.1"
+    "mocha": "^2.2.1",
+    "should": "^5.1.0"
   }
 }

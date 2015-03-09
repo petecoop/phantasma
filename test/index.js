@@ -1,9 +1,9 @@
 var Phantasma = require('../index');
-var assert = require('assert');
+var should = require('should');
 
 describe('Phantasma', function () {
   it('should be constructable', function () {
     var ph = new Phantasma();
-    assert(ph !== undefined);
+    ph.should.be.ok;
   });
 });
