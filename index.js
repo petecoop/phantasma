@@ -2,18 +2,37 @@ var Promise = require('./lib/promise');
 var phantom = require('phantom');
 var util = require('util');
 var EventEmitter = require('events').EventEmitter;
+var defaults = require('defaults');
+var changeCase = require('change-case');
+
+var DEFAULTS = {
+  diskCache: false,
+  ignoreSslErrors: true,
+  loadImages: true,
+  localStoragePath: null,
+  localToRemoteUrlAccess: false,
+  maxDiskCacheSize: null,
+  phantomPath: null,
+  port: null,
+  proxy: null,
+  proxyType: 'http',
+  proxyAuth: null,
+  sslCertificatesPath: null,
+  timeout: 5000,
+  webSecurity: true
+};
  
-module.exports = Phantasma = function () {
+module.exports = Phantasma = function (options) {
   EventEmitter.call(this);
   this.ph = null;
   this.page = null;
   this.promise = Promise(this);
-  return this.init();
+  return this.init(options);
 };
 
 util.inherits(Phantasma, EventEmitter);
 
-Phantasma.prototype.init = function () {
+Phantasma.prototype.init = function (options) {
   var self = this;
 
   return new this.promise(function (resolve, reject) {

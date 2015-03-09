@@ -86,7 +86,22 @@ Create a new instance, initiates the phantomjs instance
 
 The available options are:
 
-... needs options
+- `diskCache: [true|false]`: enables disk cache (default is `false`).
+- `ignoreSslErrors: [true|false]`: ignores SSL errors, such as expired or self-signed certificate errors (default is `true`).
+- `loadImages: [true|false]`: load all inlined images (default is `true`).
+- `localStoragePath: '/some/path'`: path to save LocalStorage content and WebSQL content (no default).
+- `localStorageQuota: [Number]`: maximum size to allow for data (no default).
+- `localToRemoteUrlAccess: [true|false]`: allows local content to access remote URL (default is `false`).
+- `maxDiskCacheSize: [Number]`: limits the size of disk cache in KB (no default).
+- `phantomPath`: specify a different custom path to PhantomJS (no default).
+- `port: [Number]`: specifies the phantomjs port (if not set will find an open port and use it).
+- `proxy: 'address:port'`: specifies the proxy server to use (e.g. `proxy: '192.168.1.42:8080'`) (no default).
+- `proxyType: [http|socks5|none]`: specifies the type of the proxy server (default is `http`) (no default).
+- `proxyAuth`: specifies the authentication information for the proxy, e.g. `proxyAuth: 'username:password'`) (no default).
+- `sslProtocol: [sslv3|sslv2|tlsv1|any]` sets the SSL protocol for secure connections (default is `any`).
+- `sslCertificatesPath: '/some/path'` Sets the location for custom CA certificates (if none set, uses system `default`).
+- `timeout [Number]`: how long to wait for page loads in ms (default is `5000`).
+- `webSecurity: [true|false]`: enables web security and forbids cross-domain XHR (default is `true`).
 
 ### Methods
 
