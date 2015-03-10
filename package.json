@@ -1,6 +1,6 @@
 {
   "name": "phantasma",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A high level promise based wrapper for phantomjs",
   "keywords": [
     "phantom",
