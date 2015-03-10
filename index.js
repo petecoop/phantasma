@@ -78,11 +78,11 @@ Phantasma.prototype.init = function () {
         page.set('onUrlChanged', function (url) {
           self.emit('onUrlChanged', url);
         });
-        page.set('onResourceRequested', function () {
-          self.emit('onResourceRequested');
+        page.set('onResourceRequested', function (requestData, networkRequest) {
+          self.emit('onResourceRequested', requestData, networkRequest);
         });
-        page.set('onResourceReceived', function (res) {
-          self.emit('onResourceReceived', res);
+        page.set('onResourceReceived', function (response) {
+          self.emit('onResourceReceived', response);
         });
         page.set('onLoadStarted', function () {
           self.emit('onLoadStarted');
@@ -119,7 +119,12 @@ Phantasma.prototype.open = function (url) {
 };
 
 Phantasma.prototype.exit = function () {
-  this.ph.exit();
+  var self = this;
+
+  return new this.promise(function (resolve, reject) {
+    self.ph.exit();
+    resolve();
+  });
 };
 
 Phantasma.prototype.viewport = function (width, height) {
@@ -184,5 +189,11 @@ Phantasma.prototype.click = function (selector) {
 Phantasma.prototype.title = function () {
   return this.evaluate(function () {
     return document.title;
+  });
+};
+
+Phantasma.prototype.url = function () {
+  return this.evaluate(function () {
+    return document.location.href;
   });
 };

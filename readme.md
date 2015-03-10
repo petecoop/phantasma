@@ -156,6 +156,9 @@ Saves a screenshot of the current page to the specified `path`. Useful for debug
 #### .title()
 Get the title of the current page, the result is passed to the resolved promise.
 
+#### .url()
+Get the url of the current page, the result is passed to the resolved promise.
+
 
 ### Events
 
@@ -191,11 +194,11 @@ Executes `callback` when the `event` is emitted only once.
 
 #### Supported Events:
 
-Supports the following phantomjs events, you can read more on these [here]([PhantomJS callbacks](https://github.com/ariya/phantomjs/wiki/API-Reference-WebPage#callbacks-list)):
+Supports the following phantomjs events, you can read more on these here ([PhantomJS callbacks](https://github.com/ariya/phantomjs/wiki/API-Reference-WebPage#callbacks-list)):
 
 - `onUrlChanged` - callback(url)
-- `onResourceRequested` - callback()
-- `onResourceReceived` - callback(res)
+- `onResourceRequested` - callback(requestData, networkRequest)
+- `onResourceReceived` - callback(response)
 - `onLoadStarted` - callback()
 - `onLoadFinished` - callback(status)
 - `onAlert` - callback(msg)
