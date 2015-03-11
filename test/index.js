@@ -79,6 +79,28 @@ describe('Phantasma', function () {
         });
     });
 
+    it('should set value', function () {
+      return ph.open('http://localhost:3000')
+        .value('#typehere', 'test value')
+        .evaluate(function () {
+          return document.querySelector('#typehere').value;
+        })
+        .then(function (val) {
+          val.should.equal('test value');
+        });
+    });
+
+    it('should select a value', function () {
+      return ph.open('http://localhost:3000')
+        .select('#selectthis', '2')
+        .evaluate(function () {
+          return document.querySelector('#selectthis').value;
+        })
+        .then(function (val) {
+          val.should.equal('2');
+        });
+    });
+
     it('should take screenshots', function () {
       var path = 'test/temp/screenshot.png';
       return ph.open('http://localhost:3000')
@@ -112,6 +134,17 @@ describe('Phantasma', function () {
         .refresh()
         .then(function () {
           count.should.equal(2);
+        });
+    });
+
+    it('should focus an element', function () {
+      return ph.open('http://localhost:3000')
+        .focus('#typehere')
+        .evaluate(function () {
+          return document.activeElement.id;
+        })
+        .then(function (active) {
+          active.should.equal('typehere');
         });
     });
 

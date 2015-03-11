@@ -170,8 +170,29 @@ Phantasma.prototype.evaluate = function (fn) {
 Phantasma.prototype.type = function (selector, value) {
   var self = this;
 
+  return this.focus(selector)
+    .then(function () {
+      return self.page.sendEvent('keypress', value);
+    }).delay(50);
+};
+
+Phantasma.prototype.value = function (selector, value) {
+  var self = this;
+
   return this.evaluate(function (selector, value) {
     document.querySelector(selector).value = value;
+  }, selector, value);
+};
+
+Phantasma.prototype.select = function (selector, value) {
+  var self = this;
+
+  return this.evaluate(function (selector, value) {
+    var element = document.querySelector(selector);
+    var evt = document.createEvent('HTMLEvents');
+    element.value = value;
+    evt.initEvent('change', true, true);
+    element.dispatchEvent(evt);
   }, selector, value);
 };
 
@@ -223,4 +244,12 @@ Phantasma.prototype.refresh = function () {
     self.page.reload();
     resolve();
   }).wait();
+};
+
+Phantasma.prototype.focus = function (selector) {
+  var self = this;
+
+  return this.evaluate(function (selector) {
+    document.querySelector(selector).focus();
+  }, selector);
 };

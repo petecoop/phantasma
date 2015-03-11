@@ -112,11 +112,23 @@ The available options are:
 #### .open(url)
 Load the page at `url`. Will throw a Timeout error if it takes longer to complete than the timeout setting.
 
+#### .wait()
+Wait until a page finishes loading, typically after a `.click()`. Will throw a Timeout error if it takes longer to complete than the timeout setting.
+
+#### .exit()
+Close the phantomjs process.
+
 #### .click(selector)
 Clicks the `selector` element.
 
 #### .type(selector, text)
 Enters the `text` provided into the `selector` element.
+
+#### .value(selector, text)
+Sets the `text` provided as the value of the `selector` element.
+
+#### .select(selector, value)
+Sets the `value` of a select element to `value`.
 
 #### .evaluate(fn, arg1, arg2,...)
 Invokes `fn` on the page with `arg1, arg2,...`. All the `args` are optional. On completion it passes the return value of `fn` to the resolved promise. Example:
@@ -141,12 +153,6 @@ ph.evaluate(function (param1, param2) {
   });
 ```
 
-#### .wait()
-Wait until a page finishes loading, typically after a `.click()`. Will throw a Timeout error if it takes longer to complete than the timeout setting.
-
-#### .exit()
-Close the phantomjs process
-
 #### .viewport(width, height)
 Set the viewport dimensions
 
@@ -167,6 +173,9 @@ Go forward to the next page. This will `.wait()` untill the page has loaded.
 
 #### .refresh()
 refresh the current page. This will `.wait()` untill the page has loaded.
+
+#### .focus(selector)
+Focus the `selector` element.
 
 
 ### Events

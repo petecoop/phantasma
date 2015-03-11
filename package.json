@@ -15,7 +15,7 @@
     "url": "https://github.com/petecoop/phantasma.git"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --slow=1000 --timeout=5000"
   },
   "license": "ISC",
   "dependencies": {
