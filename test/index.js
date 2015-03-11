@@ -148,6 +148,33 @@ describe('Phantasma', function () {
         });
     });
 
+    it('should inject javascript', function () {
+      return ph.open('http://localhost:3000')
+        .injectJs('test/files/inject.js')
+        .evaluate(function () {
+          return test;
+        })
+        .then(function (result) {
+          result.should.equal('testing!');
+        });
+    });
+
+    it('should get content', function () {
+      return ph.open('http://localhost:3000/content.html')
+        .content()
+        .then(function (result) {
+          result.should.equal('<html><head></head><body><h1>Test</h1></body></html>');
+        });
+    });
+
+    it('should set content', function () {
+      return ph.content('<h1>Test</h1>')
+        .content()
+        .then(function (result) {
+          result.should.equal('<html><head></head><body><h1>Test</h1></body></html>');
+        });
+    });
+
   });
 
   describe('Events', function () {

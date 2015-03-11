@@ -177,6 +177,11 @@ refresh the current page. This will `.wait()` untill the page has loaded.
 #### .focus(selector)
 Focus the `selector` element.
 
+#### .injectJs(path)
+Inject javascript at `path` into the currently open page.
+
+#### .content(html)
+Get or set the content of the page, if `html` is set it will set, if not it will get.
 
 ### Events
 

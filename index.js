@@ -253,3 +253,27 @@ Phantasma.prototype.focus = function (selector) {
     document.querySelector(selector).focus();
   }, selector);
 };
+
+Phantasma.prototype.injectJs = function (path) {
+  var self = this;
+
+  return new this.promise(function (resolve, reject) {
+    self.page.injectJs(path, function (status) {
+      resolve(status);
+    });
+  });
+};
+
+Phantasma.prototype.content = function (html) {
+  var self = this;
+
+  return new this.promise(function (resolve, reject) {
+    if(html){
+      self.page.setContent(html, null, resolve);
+    }else{
+      self.page.getContent(function (content) {
+        resolve(content);
+      });
+    }
+  });
+};
