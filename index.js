@@ -197,3 +197,30 @@ Phantasma.prototype.url = function () {
     return document.location.href;
   });
 };
+
+Phantasma.prototype.forward = function () {
+  var self = this;
+
+  return new this.promise(function (resolve, reject) {
+    self.page.goForward();
+    resolve();
+  }).wait();
+};
+
+Phantasma.prototype.back = function () {
+  var self = this;
+
+  return new this.promise(function (resolve, reject) {
+    self.page.goBack();
+    resolve();
+  }).wait();
+};
+
+Phantasma.prototype.refresh = function () {
+  var self = this;
+
+  return new this.promise(function (resolve, reject) {
+    self.page.reload();
+    resolve();
+  }).wait();
+};

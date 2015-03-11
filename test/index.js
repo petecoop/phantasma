@@ -88,6 +88,33 @@ describe('Phantasma', function () {
         });
     });
 
+    it('should navigate backwards and forwards', function () {
+      return ph.open('http://localhost:3000')
+        .open('http://localhost:3000/page1.html')
+        .back()
+        .url()
+        .then(function (url) {
+          url.should.equal('http://localhost:3000/');
+        })
+        .forward()
+        .url(function (url) {
+          url.should.equal('http://localhost:3000/page1.html');
+        });
+    });
+
+    it('should refresh the page', function () {
+      var count = 0;
+      ph.on('onLoadFinished', function () {
+        count++;
+      });
+
+      return ph.open('http://localhost:3000')
+        .refresh()
+        .then(function () {
+          count.should.equal(2);
+        });
+    });
+
   });
 
   describe('Events', function () {

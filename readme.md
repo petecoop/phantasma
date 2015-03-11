@@ -159,6 +159,15 @@ Get the title of the current page, the result is passed to the resolved promise.
 #### .url()
 Get the url of the current page, the result is passed to the resolved promise.
 
+#### .back()
+Go back to the previous page. This will `.wait()` untill the page has loaded.
+
+#### .forward()
+Go forward to the next page. This will `.wait()` untill the page has loaded.
+
+#### .refresh()
+refresh the current page. This will `.wait()` untill the page has loaded.
+
 
 ### Events
 
