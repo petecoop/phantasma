@@ -159,6 +159,19 @@ describe('Phantasma', function () {
         });
     });
 
+    it('should inject css', function () {
+      return ph.open('http://localhost:3000')
+        .injectCss('h1 { color: #ff0000; }')
+        .evaluate(function () {
+          var el = document.querySelector('#heading');
+          var style = getComputedStyle(el);
+          return style.color;
+        })
+        .then(function (result) {
+          result.should.equal('rgb(255, 0, 0)');
+        });
+    });
+
     it('should get content', function () {
       return ph.open('http://localhost:3000/content.html')
         .content()

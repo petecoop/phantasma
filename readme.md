@@ -180,6 +180,9 @@ Focus the `selector` element.
 #### .injectJs(path)
 Inject javascript at `path` into the currently open page.
 
+#### .injectCss(style)
+Inject CSS string `style` into the currently open page.
+
 #### .content(html)
 Get or set the content of the page, if `html` is set it will set, if not it will get.
 

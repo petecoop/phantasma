@@ -264,6 +264,16 @@ Phantasma.prototype.injectJs = function (path) {
   });
 };
 
+Phantasma.prototype.injectCss = function (style) {
+  var self = this;
+
+  return this.evaluate(function (style) {
+    var ele = document.createElement('style');
+    ele.innerHTML = style;
+    document.head.appendChild(ele);
+  }, style);
+};
+
 Phantasma.prototype.content = function (html) {
   var self = this;
 
