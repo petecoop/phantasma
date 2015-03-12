@@ -10,6 +10,12 @@ The aim is to make interacting with PhantomJS from node as simple as possible. A
 
 This project is heavily influenced by [Nightmare](https://github.com/segmentio/nightmare).
 
+## Install
+
+- Install PhantomJs: http://phantomjs.org/download.html
+
+- `npm install phantasma`
+
 ## Examples
 
 ```js
