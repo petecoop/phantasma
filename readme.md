@@ -8,7 +8,7 @@ A high level promise based wrapper for [PhantomJS](http://phantomjs.org/)
 
 The aim is to make interacting with PhantomJS from node as simple as possible. All actions are asynchronous and return a [bluebird](https://www.npmjs.org/package/bluebird) promise. The promises have been extended with Phantasma methods, allowing for a fluent API.
 
-This project is heavily influenced by [Nightmare](https://github.com/segmentio/nightmare).
+This project is heavily influenced by [Nightmare](https://github.com/segmentio/nightmare), but different - Nightmare queues up actions which are then exectued when `.run()` is called, once this is done phantomjs is exited. This is fine if you already know the actions you want to take however it's not possible to change the flow of actions mid-way e.g. if sometimes a popup/button appears on a page that you want to click before continuing with the next action. Phantasma takes a different approach - using promises which leaves queueing up to the promise library (bluebird) and leaves you in control of when to exit the phantomjs process.
 
 ## Install
 
