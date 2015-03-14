@@ -22,6 +22,10 @@ var OPTIONS = {
     'phantomPath',
     'port'
   ],
+  page: [
+    'javascriptEnabled',
+    'userAgent'
+  ],
   extras: [
     'timeout'
   ]
@@ -41,7 +45,9 @@ var DEFAULTS = {
   proxyAuth: null,
   sslCertificatesPath: null,
   timeout: 5000,
-  webSecurity: true
+  webSecurity: true,
+  javascriptEnabled: null,
+  userAgent: null
 };
  
 module.exports = Phantasma = function (options) {
@@ -59,6 +65,7 @@ Phantasma.prototype.init = function () {
   var self = this;
 
   var options = {parameters: {}};
+  var pageOptions = {};
   for(var o in this.options){
     if(this.options[o] !== null){
       if(OPTIONS.params.indexOf(o) !== -1){
@@ -66,6 +73,9 @@ Phantasma.prototype.init = function () {
       }
       if(OPTIONS.options.indexOf(o) !== -1){
         options[o] = this.options[o];
+      }
+      if(OPTIONS.page.indexOf(o) !== -1){
+        pageOptions[o] = this.options[o];
       }
     }
   }
@@ -99,11 +109,31 @@ Phantasma.prototype.init = function () {
         page.set('onNavigationRequested', function (url, type, willNavigate, main) {
           self.emit('onNavigationRequested', url, type, willNavigate, main);
         });
-        resolve();
+
+        if(Object.keys(pageOptions).length){
+          var settings = [];
+          for(var o in pageOptions){
+            settings.push(self.pageSetting(o, pageOptions[o]));
+          }
+          self.promise.all(settings).then(function () {
+            resolve();
+          });
+        }else{
+          resolve();
+        }
+
       });
     }, options);
   });
 
+};
+
+Phantasma.prototype.pageSetting = function (setting, value) {
+  var self = this;
+
+  return new this.promise(function (resolve, reject) {
+    self.page.set('settings.' + setting, value, resolve);
+  });
 };
 
 Phantasma.prototype.open = function (url) {
