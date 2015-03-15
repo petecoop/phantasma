@@ -24,7 +24,14 @@ var OPTIONS = {
   ],
   page: [
     'javascriptEnabled',
+    'loadImages',
+    'localToRemoteUrlAccessEnabled',
     'userAgent'
+    'userName',
+    'password',
+    'XSSAuditingEnabled',
+    'webSecurityEnabled',
+    'resourceTimeout'
   ],
   extras: [
     'timeout'
@@ -47,7 +54,14 @@ var DEFAULTS = {
   timeout: 5000,
   webSecurity: true,
   javascriptEnabled: null,
-  userAgent: null
+  loadImages: null,
+  localToRemoteUrlAccessEnabled: null,
+  userAgent: null,
+  userName: null,
+  password: null,
+  XSSAuditingEnabled: null,
+  webSecurityEnabled: null,
+  resourceTimeout: null,
 };
  
 module.exports = Phantasma = function (options) {
@@ -93,6 +107,9 @@ Phantasma.prototype.init = function () {
         });
         page.set('onResourceReceived', function (response) {
           self.emit('onResourceReceived', response);
+        });
+        page.set('onResourceTimeout', function (request) {
+          self.emit('onResourceTimeout', request);
         });
         page.set('onLoadStarted', function () {
           self.emit('onLoadStarted');

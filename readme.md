@@ -111,6 +111,19 @@ The available options are:
 - `timeout [Number]`: how long to wait for page loads in ms (default is `5000`).
 - `webSecurity: [true|false]`: enables web security and forbids cross-domain XHR (default is `true`).
 
+#### Page Settings
+These options can be passed into `new Phantasma(options)`, alternatively they can be set individually afterwards using the `.pageSetting(setting, value)` method.
+
+- `javascriptEnabled: [true|false]`: defines whether to execute the script in the page or not (defaults to `true`).
+- `loadImages: [true|false]`: defines whether to load the inlined images or not (defaults to `true`).
+- `localToRemoteUrlAccessEnabled: [true|false]`: defines whether local resource (e.g. from file) can access remote URLs or not (defaults to `false`).
+- `userAgent: String`: defines the user agent sent to server when the web page requests resources.
+- `userName: String`: sets the user name used for HTTP authentication.
+- `password: String`: sets the password used for HTTP authentication.
+- `XSSAuditingEnabled: [true|false]`: defines whether load requests should be monitored for cross-site scripting attempts (defaults to `false`).
+- `webSecurityEnabled: [true|false]`: defines whether web security should be enabled or not (defaults to `true`).
+- `resourceTimeout: Number`: (in milli-secs) defines the timeout after which any resource requested will stop trying and proceed with other parts of the page. `onResourceTimeout` event will be called on timeout.
+
 ### Methods
 
 #### .open(url)
@@ -190,6 +203,9 @@ Inject CSS string `style` into the currently open page.
 #### .content(html)
 Get or set the content of the page, if `html` is set it will set, if not it will get.
 
+#### .pageSetting(setting, value)
+Set a page setting.
+
 ### Events
 
 Events extends node's EventEmitter.
@@ -234,6 +250,7 @@ Supports the following phantomjs events, you can read more on these here ([Phant
 - `onAlert` - callback(msg)
 - `onErr` - callback(msg, trace)
 - `onNavigationRequested` - callback(url, type, willNavigate, main)
+- `onResourceTimeout` - callback(request)
 
 ## Promise methods
 
