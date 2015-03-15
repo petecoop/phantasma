@@ -26,7 +26,7 @@ var OPTIONS = {
     'javascriptEnabled',
     'loadImages',
     'localToRemoteUrlAccessEnabled',
-    'userAgent'
+    'userAgent',
     'userName',
     'password',
     'XSSAuditingEnabled',
