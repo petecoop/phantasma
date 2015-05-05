@@ -242,15 +242,16 @@ Executes `callback` when the `event` is emitted only once.
 
 Supports the following phantomjs events, you can read more on these here ([PhantomJS callbacks](https://github.com/ariya/phantomjs/wiki/API-Reference-WebPage#callbacks-list)):
 
-- `onUrlChanged` - callback(url)
-- `onResourceRequested` - callback(requestData, networkRequest)
-- `onResourceReceived` - callback(response)
-- `onLoadStarted` - callback()
-- `onLoadFinished` - callback(status)
 - `onAlert` - callback(msg)
-- `onErr` - callback(msg, trace)
+- `onConsoleMessage` - callback(msg, lineNum, sourceId)
+- `onError` - callback(msg, trace)
+- `onLoadFinished` - callback(status)
+- `onLoadStarted` - callback()
 - `onNavigationRequested` - callback(url, type, willNavigate, main)
+- `onResourceReceived` - callback(response)
+- `onResourceRequested` - callback(requestData, networkRequest)
 - `onResourceTimeout` - callback(request)
+- `onUrlChanged` - callback(url)
 
 ## Promise methods
 
