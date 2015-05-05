@@ -63,7 +63,7 @@ var DEFAULTS = {
   webSecurityEnabled: null,
   resourceTimeout: null,
 };
- 
+
 module.exports = Phantasma = function (options) {
   EventEmitter.call(this);
   this.ph = null;
@@ -99,32 +99,36 @@ Phantasma.prototype.init = function () {
       self.ph = ph;
       ph.createPage(function (page) {
         self.page = page;
-        page.set('onUrlChanged', function (url) {
-          self.emit('onUrlChanged', url);
-        });
-        page.set('onResourceRequested', function (requestData, networkRequest) {
-          self.emit('onResourceRequested', requestData, networkRequest);
-        });
-        page.set('onResourceReceived', function (response) {
-          self.emit('onResourceReceived', response);
-        });
-        page.set('onResourceTimeout', function (request) {
-          self.emit('onResourceTimeout', request);
-        });
-        page.set('onLoadStarted', function () {
-          self.emit('onLoadStarted');
-        });
-        page.set('onLoadFinished', function (status) {
-          self.emit('onLoadFinished', status);
-        });
+        // map phantom callback to signals
         page.set('onAlert', function (msg) {
           self.emit('onAlert', msg);
+        });
+        page.set('onConsoleMessage', function (msg, lineNum, sourceId) {
+          self.emit('onConsoleMessage', msg, lineNum, sourceId);
         });
         page.set('onError', function (msg, trace) {
           self.emit('onError', msg, trace);
         });
+        page.set('onLoadFinished', function (status) {
+          self.emit('onLoadFinished', status);
+        });
+        page.set('onLoadStarted', function () {
+          self.emit('onLoadStarted');
+        });
         page.set('onNavigationRequested', function (url, type, willNavigate, main) {
           self.emit('onNavigationRequested', url, type, willNavigate, main);
+        });
+        page.set('onResourceReceived', function (response) {
+          self.emit('onResourceReceived', response);
+        });
+        page.set('onResourceRequested', function (requestData, networkRequest) {
+          self.emit('onResourceRequested', requestData, networkRequest);
+        });
+        page.set('onResourceTimeout', function (request) {
+          self.emit('onResourceTimeout', request);
+        });
+        page.set('onUrlChanged', function (url) {
+          self.emit('onUrlChanged', url);
         });
 
         if(Object.keys(pageOptions).length){
