@@ -235,6 +235,15 @@ Phantasma.prototype.value = function (selector, value) {
   }, selector, value);
 };
 
+Phantasma.prototype.upload = function (selector, value) {
+  if (fs.existsSync(path)) {
+    this.page.uploadFile(selector, value);
+  }
+  else {
+    done(new Error('File does not exist to upload.'));
+  }
+}
+
 Phantasma.prototype.select = function (selector, value) {
   var self = this;
 
