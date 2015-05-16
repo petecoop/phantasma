@@ -338,3 +338,14 @@ Phantasma.prototype.content = function (html) {
     }
   });
 };
+
+exports.extractDomElement = function (selector, path) {
+    var self = this;
+    this.page.evaluate(function (selector) {
+        return document.querySelector(selector).getBoundingClientRect();
+    }, function (rectOptions) {
+        self.page.set('clipRect', rectOptions);
+        self.page.render(path);
+    }, selector);
+};
+
