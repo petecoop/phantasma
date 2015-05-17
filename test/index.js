@@ -111,9 +111,9 @@ describe('Phantasma', function () {
     });
     
     it('should extract a dom element as img',function(){
-      var path = 'test/temp/GoogleLogo.png'
-         return ph.open('http://www.google.com')
-        .extractDomElement('div[id="hplogo"]',path)
+      var path = 'test/temp/testLogo.png'
+         return ph.open('http://localhost:3000')
+        .extractDomElement('h1',path)
         .then(function () {
           fs.existsSync(path).should.be.true;
         });
