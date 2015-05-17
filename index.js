@@ -339,7 +339,7 @@ Phantasma.prototype.content = function (html) {
   });
 };
 
-exports.extractDomElement = function (selector, path) {
+Phantasma.prototype.extractDomElement = function (selector, path) {
     var self = this;
     this.page.evaluate(function (selector) {
         return document.querySelector(selector).getBoundingClientRect();
