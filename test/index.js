@@ -110,14 +110,14 @@ describe('Phantasma', function () {
         });
     });
     
-    it('should extract a dom element as img',function(){
-      var path = 'test/temp/testLogo.png'
-         return ph.open('http://localhost:3000/page1.html')
-        .extractDomElement('h1',path)
+   it('should extract a dom element as img',function(){
+      var path = 'test/temp/GoogleLogo.png'
+         return ph.open('http://www.google.com')
+        .extractDomElement('div[id="hplogo"]',path)
         .then(function () {
           fs.existsSync(path).should.be.true;
         });
-    })
+   })
     
 
     it('should navigate backwards and forwards', function () {
