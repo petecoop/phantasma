@@ -4,6 +4,7 @@ var util = require('util');
 var EventEmitter = require('events').EventEmitter;
 var defaults = require('defaults');
 var changeCase = require('change-case');
+var fs = require('fs');
 
 var OPTIONS = {
   params: [
@@ -349,3 +350,10 @@ Phantasma.prototype.extractDomElement = function (selector, path) {
     }, selector);
 };
 
+Phantasma.prototype.upload = function (selector, value) {
+	if (fs.existsSync(value)) {
+		this.page.uploadFile(selector, value);
+	} else {
+		done(new Error('File does not exist to upload.'));
+	}
+}
