@@ -347,7 +347,7 @@ Phantasma.prototype.extractDomElement = function (selector, path) {
     }, function (rectOptions) {
         self.page.set('clipRect', rectOptions);
         self.page.render(path);
-    }, path);
+    }, rectOptions);
 };
 
 Phantasma.prototype.upload = function (selector, value) {
