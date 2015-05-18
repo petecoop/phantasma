@@ -343,11 +343,12 @@ Phantasma.prototype.content = function (html) {
 Phantasma.prototype.extractDomElement = function (selector, path) {
     var self = this;
     this.page.evaluate(function (selector) {
-        return document.querySelector(selector).getBoundingClientRect();
+    	var rectOptions =  document.querySelector(selector).getBoundingClientRect();
+        return rectOptions;
     }, function (rectOptions) {
         self.page.set('clipRect', rectOptions);
         self.page.render(path);
-    }, rectOptions);
+    }, selector);
 };
 
 Phantasma.prototype.upload = function (selector, value) {
