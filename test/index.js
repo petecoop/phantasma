@@ -118,6 +118,19 @@ describe('Phantasma', function () {
           fs.existsSync(path).should.be.true;
         });
    })
+   
+   
+   it('should upload a file to the input field',function(){
+      var path = 'test/temp/pageScreenShot.png'
+      return ph.open('http://localhost:3000/uploadPage.html')
+        .screenshot(path)
+        .upload('input[id="uploadTest"]',path)
+        .evaluate(function(filesNumber){
+          return document.getElementById("myFile").files.length;
+        }).then(function (filesNumber) {
+         filesNumber.should.equal(1);
+        });
+   })
     
 
     it('should navigate backwards and forwards', function () {
