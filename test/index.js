@@ -126,7 +126,7 @@ describe('Phantasma', function () {
         .screenshot(path)
         .upload('input[id="uploadTest"]',path)
         .evaluate(function(filesNumber){
-          return document.getElementById("myFile").files.length;
+          return document.getElementById("uploadTest").files.length;
         }).then(function (filesNumber) {
          filesNumber.should.equal(1);
         });
