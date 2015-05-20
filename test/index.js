@@ -113,7 +113,7 @@ describe('Phantasma', function () {
    it('should extract a dom element as img',function(){
       var path = 'test/temp/uploadInputShoot.png'
          return ph.open('http://localhost:3000/uploadPage.html')
-        .extractDomElement('input[id="uploadTest"]',path)
+        .extractDomElement('input',path)
         .then(function () {
           fs.existsSync(path).should.be.true;
         });
