@@ -183,7 +183,7 @@ Phantasma.prototype.viewport = function (width, height) {
 
   return new this.promise(function (resolve, reject) {
     if(!self.page) return reject('tried to set viewport before page created');
-    page.set('viewportSize', {width: width, height: height}, function (result) {
+    self.page.set('viewportSize', {width: width, height: height}, function (result) {
       resolve(result);
     });
   });
