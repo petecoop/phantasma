@@ -109,6 +109,29 @@ describe('Phantasma', function () {
           fs.existsSync(path).should.be.true;
         });
     });
+    
+   it('should extract a dom element as img',function(){
+      var path = 'test/temp/uploadInputShoot.png'
+         return ph.open('http://localhost:3000/uploadPage.html')
+        .extractDomElement('input',path)
+        .then(function () {
+          fs.existsSync(path).should.be.true;
+        });
+   })
+   
+   
+   it('should upload a file to the input field',function(){
+      var path = 'test/temp/pageScreenShot.png'
+      return ph.open('http://localhost:3000/uploadPage.html')
+        .screenshot(path)
+        .upload('input[id="uploadTest"]',path)
+        .evaluate(function(filesNumber){
+          return document.getElementById("uploadTest").files.length;
+        }).then(function (filesNumber) {
+         filesNumber.should.equal(1);
+        });
+   })
+    
 
     it('should navigate backwards and forwards', function () {
       return ph.open('http://localhost:3000')

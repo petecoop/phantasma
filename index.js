@@ -4,6 +4,7 @@ var util = require('util');
 var EventEmitter = require('events').EventEmitter;
 var defaults = require('defaults');
 var changeCase = require('change-case');
+var fs = require('fs');
 
 var OPTIONS = {
   params: [
@@ -338,3 +339,22 @@ Phantasma.prototype.content = function (html) {
     }
   });
 };
+
+Phantasma.prototype.extractDomElement = function (selector, path) {
+    var self = this;
+    this.page.evaluate(function (selector,path) {
+    	var rectOptions =  document.querySelector(selector).getBoundingClientRect();
+        return rectOptions;
+    }, function (rectOptions) {
+        self.page.set('clipRect', rectOptions);
+        self.page.render(path);
+    }, selector,path);
+};
+
+Phantasma.prototype.upload = function (selector, value) {
+	if (fs.existsSync(value)) {
+		this.page.uploadFile(selector, value);
+	} else {
+		done(new Error('File does not exist to upload.'));
+	}
+}
