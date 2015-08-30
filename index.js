@@ -78,7 +78,7 @@ util.inherits(Phantasma, EventEmitter);
 Phantasma.prototype.init = function () {
   var self = this;
 
-  var options = {parameters: {}};
+  var options = {parameters: {},dnodeOpts: {weak: false}};
   var pageOptions = {};
   for(var o in this.options){
     if(this.options[o] !== null){
