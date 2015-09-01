@@ -338,3 +338,24 @@ Phantasma.prototype.content = function (html) {
     }
   });
 };
+Phantasma.prototype.extractDomElement = function (selector, path) {
+    var self = this;
+    return this.evaluate(function (selector) {
+        return document.querySelector(selector).getBoundingClientRect();
+    }, selector).then(function (value) {
+        self.page.set('clipRect', value);
+        return new self.promise(function (resolve, reject) {
+            self.page.render(path, resolve);
+            self.restoreRect();
+        })
+    })
+}
+
+Phantasma.prototype.restoreRect = function () {
+    var self = this;
+    return this.evaluate(function () {
+        return document.querySelector('body').getBoundingClientRect();
+    }).then(function (value) {
+        self.page.set('clipRect', value);
+    })
+}
