@@ -110,7 +110,7 @@ describe('Phantasma', function () {
         });
     });
     
-     it('should extract h1 as image', function () {
+     it('should screenshot h1 and save it as image', function () {
       var path = 'test/temp/h1.png';
       return ph.open('http://localhost:3000')
         .screenshotDomElement('h1[id="heading"]',path)
