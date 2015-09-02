@@ -30,7 +30,8 @@ describe('Phantasma', function () {
   });
 
   beforeEach(function () {
-    ph = new Phantasma();
+    ph = new Phantasma({
+      timeout:10000});
   });
 
   afterEach(function () {
