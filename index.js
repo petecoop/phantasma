@@ -338,7 +338,7 @@ Phantasma.prototype.content = function (html) {
     }
   });
 };
-Phantasma.prototype.extractDomElement = function (selector, path) {
+Phantasma.prototype.screenshotDomElement = function (selector, path) {
     var self = this;
     return this.evaluate(function (selector) {
         return document.querySelector(selector).getBoundingClientRect();
