@@ -176,8 +176,8 @@ Set the viewport dimensions
 #### .screenshot(path)
 Saves a screenshot of the current page to the specified `path`. Useful for debugging. Note the path must include the file extension. Supported formats include .png, .gif, .jpeg, and .pdf.
 
-#### .extractDomElement(selector,path)
-Saves an specific DOM element as image to the specified `path`.Note the path must include the file extension. Supported formats include .png, .gif, .jpeg, and .pdf.
+#### .screenshotDomElement(selector,path)
+Saves an screenshot of an specific DOM element as image to the specified `path`.Note the path must include the file extension. Supported formats include .png, .gif, .jpeg, and .pdf.
 
 #### .title()
 Get the title of the current page, the result is passed to the resolved promise.
