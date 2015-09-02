@@ -109,6 +109,15 @@ describe('Phantasma', function () {
           fs.existsSync(path).should.be.true;
         });
     });
+    
+     it('should extract h1 as image', function () {
+      var path = 'test/temp/h1.png';
+      return ph.open('http://localhost:3000')
+        .extractDomElement('h1[id="heading"]',path)
+        .then(function () {
+          fs.existsSync(path).should.be.true;
+        });
+    });
 
     it('should navigate backwards and forwards', function () {
       return ph.open('http://localhost:3000')
