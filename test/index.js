@@ -7,6 +7,7 @@ var serveStatic = require('serve-static');
 var finalhandler = require('finalhandler');
 
 describe('Phantasma', function () {
+  this.timeout(10000);  
 
   var server, ph;
 
