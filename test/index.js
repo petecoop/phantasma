@@ -30,7 +30,8 @@ describe('Phantasma', function () {
   });
 
   beforeEach(function () {
-    ph = new Phantasma();
+    ph = new Phantasma({
+      timeout:10000});
   });
 
   afterEach(function () {
@@ -105,6 +106,15 @@ describe('Phantasma', function () {
       var path = 'test/temp/screenshot.png';
       return ph.open('http://localhost:3000')
         .screenshot(path)
+        .then(function () {
+          fs.existsSync(path).should.be.true;
+        });
+    });
+    
+     it('should screenshot h1 and save it as image', function () {
+      var path = 'test/temp/h1.png';
+      return ph.open('http://localhost:3000')
+        .screenshotDomElement('h1[id="heading"]',path)
         .then(function () {
           fs.existsSync(path).should.be.true;
         });
