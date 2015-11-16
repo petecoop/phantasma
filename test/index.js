@@ -51,7 +51,17 @@ describe('Phantasma', function () {
           status.should.equal('success');
         });
     });
-    
+
+    it('should reject when open fails', function () {
+      return ph.open('http://localhost:3001')
+        .then(function (status) {
+          throw new Error('failed request did not reject');
+        })
+        .catch(function (status) {
+          status.should.equal('fail');
+        });
+    });
+
     it('should get the page title', function () {
       return ph.open('http://localhost:3000')
         .title()
