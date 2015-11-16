@@ -164,6 +164,7 @@ Phantasma.prototype.open = function (url) {
     if(!self.page) return reject('tried to open before page created');
 
     self.page.open(url, function (status) {
+      if (status === 'fail') return reject(status);
       resolve(status);
     });
   }).timeout(this.options.timeout);
