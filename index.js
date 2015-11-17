@@ -19,7 +19,8 @@ var OPTIONS = {
     'webSecurity'
   ],
   options: [
-    'phantomPath',
+    'path',
+    'binary',
     'port'
   ],
   page: [
@@ -45,7 +46,8 @@ var DEFAULTS = {
   localStoragePath: null,
   localToRemoteUrlAccess: false,
   maxDiskCacheSize: null,
-  phantomPath: null,
+  path: null,
+  binary: null,
   port: null,
   proxy: null,
   proxyType: 'http',
