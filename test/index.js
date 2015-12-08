@@ -7,7 +7,7 @@ var serveStatic = require('serve-static');
 var finalhandler = require('finalhandler');
 
 describe('Phantasma', function () {
-  this.timeout(10000);  
+  this.timeout(10000); 
 
   var server, ph;
 
@@ -31,8 +31,7 @@ describe('Phantasma', function () {
   });
 
   beforeEach(function () {
-    ph = new Phantasma({
-      timeout:10000});
+    ph = new Phantasma({timeout: 10000});
   });
 
   afterEach(function () {
@@ -280,4 +279,27 @@ describe('Phantasma', function () {
 
   });
 
+});
+
+describe('Phantasma Multiple Processes', function () {
+  
+  it('should be able to handle multiple processes', function (done) {
+    var ph1 = new Phantasma();
+    var pid1, pid2;
+    ph1.then(function () {
+      pid1 = ph1.getPid();
+      
+      var ph2 = new Phantasma();
+      ph2.then(function () {
+        pid2 = ph2.getPid();
+        pid3 = ph1.getPid();
+        
+        pid1.should.equal(pid3);
+        pid2.should.not.equal(pid3);
+        done();
+      });
+    });
+    
+  });
+  
 });

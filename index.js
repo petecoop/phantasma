@@ -151,6 +151,10 @@ Phantasma.prototype.init = function () {
 
 };
 
+Phantasma.prototype.getPid = function () {
+  return this.ph ? this.ph.process.pid : null;
+};
+
 Phantasma.prototype.pageSetting = function (setting, value) {
   var self = this;
 
