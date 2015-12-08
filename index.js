@@ -254,8 +254,15 @@ Phantasma.prototype.select = function (selector, value) {
   }, selector, value);
 };
 
-Phantasma.prototype.click = function (selector) {
+Phantasma.prototype.click = function (selector, y) {
   var self = this;
+  
+  if (y) {
+    return new this.promise(function (resolve, reject) {
+      self.page.sendEvent('click', selector, y);
+      resolve();
+    });
+  }
 
   return this.evaluate(function (selector) {
     var evt = document.createEvent('MouseEvent');

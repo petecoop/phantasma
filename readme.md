@@ -138,6 +138,9 @@ Close the phantomjs process.
 #### .click(selector)
 Clicks the `selector` element.
 
+#### .click(x, y)
+Clicks at the position given.
+
 #### .type(selector, text)
 Enters the `text` provided into the `selector` element.
 
