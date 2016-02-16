@@ -101,7 +101,7 @@ The available options are:
 - `localStorageQuota: [Number]`: maximum size to allow for data (no default).
 - `localToRemoteUrlAccess: [true|false]`: allows local content to access remote URL (default is `false`).
 - `maxDiskCacheSize: [Number]`: limits the size of disk cache in KB (no default).
-- `phantomPath`: specify a different custom path to PhantomJS (no default).
+- `binary`: specify a different custom path to PhantomJS (no default).
 - `port: [Number]`: specifies the phantomjs port.
 - `proxy: 'address:port'`: specifies the proxy server to use (e.g. `proxy: '192.168.1.42:8080'`) (no default).
 - `proxyType: [http|socks5|none]`: specifies the type of the proxy server (default is `http`) (no default).
