@@ -244,6 +244,9 @@ ph.open('https://duckduckgo.com')
 #### .once(event, callback)
 Executes `callback` when the `event` is emitted only once.
 
+#### .removeListener(event, callback)
+Removes `callback` from `event` listener.
+
 #### Supported Events:
 
 Supports the following phantomjs events, you can read more on these here ([PhantomJS callbacks](https://github.com/ariya/phantomjs/wiki/API-Reference-WebPage#callbacks-list)):
