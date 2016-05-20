@@ -268,6 +268,25 @@ describe('Phantasma', function () {
         });
     });
 
+    it('should remove event listener', function (done) {
+      var count = 0;
+      var errorCallback = function (msg){
+        count++;
+        msg.should.not.be.empty;
+      }
+      ph.on('onError', errorCallback);
+      ph.open('http://localhost:3000/jserr.html')
+        .then(function(){
+          ph.removeListener('onError', errorCallback);
+        })
+        .open('http://localhost:3000/jserr.html')
+        .delay(100)
+        .then(function(){
+          count.should.equal(1);
+          done();
+        });
+    });
+
     it('should emit on navigation requested', function (done) {
       ph.open('http://localhost:3000')
         .once('onNavigationRequested', function (url, type, willNavigate, main) {
