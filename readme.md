@@ -1,3 +1,7 @@
+**No longer maintained**
+
+I'd really recommend using [Puppeteer](https://github.com/GoogleChrome/puppeteer), which solves the problem I was trying to solve here and is also really nice and quick.
+
 # Phantasma
 [![Build Status](https://img.shields.io/travis/petecoop/phantasma.svg)](https://travis-ci.org/petecoop/phantasma)
 [![NPM Version](https://img.shields.io/npm/v/phantasma.svg)](https://www.npmjs.org/package/phantasma)
